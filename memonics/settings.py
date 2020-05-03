@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "3u2^3)@sdhco&9g8k5oswtkkzq#68f0ghnbee2#!#()q_fbhtb"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['memonics.herokuapp.com']
 
