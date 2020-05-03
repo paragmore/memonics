@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3u2^3)@sdhco&9g8k5oswtkkzq#68f0ghnbee2#!#()q_fbhtb'
+SECRET_KEY = "3u2^3)@sdhco&9g8k5oswtkkzq#68f0ghnbee2#!#()q_fbhtb"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.41', '127.0.0.1']
+ALLOWED_HOSTS = ['memonics.herokuapp.com']
 
 
 # Application definition
@@ -142,12 +142,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'paragmore306@gmail.com'
-EMAIL_HOST_PASSWORD = 'Grozanium@009'
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
-AWS_ACCESS_KEY_ID = 'AKIA5DFTJ6E2XGLV3KX7' 
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'django-memonics-files'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID') 
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
