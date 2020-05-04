@@ -13,10 +13,10 @@
         {{ hidden }}
     {% endfor %}
     <p><h4>Caption</h4></p>
-    <p>{{postForm.caption| safe}}</p>
+    {{postForm.caption| safe}}
     <div class="d-none d-md-block justify-content-center">
         <p><h4>Details</h4></p>
-        <p>{{postForm.content| safe}}</p>
+        {{postForm.content| safe}}
     </div>
     
     <div class='pb-4'></div>
