@@ -48,7 +48,7 @@
                         </div>
                     {% else %}
                         {% for image in p.images.all %}
-                                <div style="max-height: 100%; overflow: hidden;">
+                                <div style="max-height: 80vh; overflow: hidden;">
                                     <img style="display: block;max-width: 100%; height: auto !important;width: auto\9; -ms-interpolation-mode: bicubic;" src="{{ image.modelimage.url }}" class="fit-image" alt='image'>
                                 </div>
                         {% endfor %}
