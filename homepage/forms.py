@@ -18,8 +18,12 @@ class CommentForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['caption']
+        fields = ['caption', 'content']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['caption'].widget.attrs.update({'autofocus': 'autofocus', 'placeholder': 'Add a caption...'})
+        self.fields['content'].widget.attrs.update({'autofocus': 'autofocus', 'placeholder': 'Add details'})
 
 class ImageForm(forms.ModelForm):
 
@@ -27,6 +31,14 @@ class ImageForm(forms.ModelForm):
         model = PostImage
         fields = ['modelimage', ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['modelimage'].widget.attrs.update({'autofocus': 'autofocus', 'placeholder': 'Add a image'})
+
 
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=100)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['search'].widget.attrs.update({'autofocus': 'autofocus', 'placeholder': 'search'})

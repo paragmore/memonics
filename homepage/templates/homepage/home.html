@@ -27,11 +27,11 @@
                         <div class="carousel-inner" >
                         {% for image in p.images.all %}
                             {% if forloop.counter0 == 0 %}
-                                <div class="carousel-item active" style="max-height: 400px; overflow: hidden;">
+                                <div class="carousel-item active" style="max-height: 80vh; overflow: hidden;">
                                     <img class="d-block w-100" style="display: block;max-width: 100%; height: auto !important;width: auto\9; -ms-interpolation-mode: bicubic;" src={{ image.modelimage.url }} alt="First slide">
                                 </div>
                             {% else %}
-                                <div class="carousel-item" style="max-height: 400px; overflow: hidden;">
+                                <div class="carousel-item" style="max-height: 80vh; overflow: hidden;">
                                     <img class="d-block w-100" style="display: block;max-width: 100%; height: auto !important;width: auto\9; -ms-interpolation-mode: bicubic;"  src={{ image.modelimage.url }} alt="Further slide">
                                 </div>
                             {% endif %}
@@ -53,75 +53,84 @@
                                 </div>
                         {% endfor %}
                     {% endif %}
+                    <div class="d-flex justify-content-center mt-2">
+                        <a href="{% url 'post-detail' p.id %}" id="post-link">
+                            <button class="btn btn-secondary btn-lg post"> <p style=" font-weight: bold ;font-size: 15px; height: 1px;">Know More!</p></button>
+                        </a>
+                    </div>  
+                    
                     {% if user.is_authenticated %}
-                    {% for i in p.likes.all %}
-                        {% if user == i.liker %}
-                            <a class='likebutton' data-catid="{{ p.id }}"><i id='like{{ p.id }}' class="btn fas fa-heart fa-lg post-buttons "></i></a>
-                        {% elif forloop.last %}
+                        {% for i in p.likes.all %}
+                            {% if user == i.liker %}
+                                <a class='likebutton' data-catid="{{ p.id }}"><i id='like{{ p.id }}' class="btn fas fa-heart fa-lg post-buttons "></i></a>
+                            {% elif forloop.last %}
+                                <a class='likebutton' data-catid="{{ p.id }}"><i id='like{{ p.id }}' class="btn far fa-heart fa-lg post-buttons "></i></a>
+                            {% endif %}
+
+                        {% empty %}
                             <a class='likebutton' data-catid="{{ p.id }}"><i id='like{{ p.id }}' class="btn far fa-heart fa-lg post-buttons "></i></a>
+
+                        {% endfor %}
+                        <a href="{% url 'comment-form' p.id %}" id="comment-link"><i class="far fa-comment fa-lg post-buttons"></i></a>
+                        {% if p.author == user %}
+                            <span class="dropdown show">
+                                <a class="btn btn-link" href="#" role="button" id="dropdownMenuLink-{{p.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-h post-buttons"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-{{p.id}}">
+                                    <a class="dropdown-item" href="{% url 'post-update' p.id %}">Update</a>
+                                    <a class="dropdown-item" href="{% url 'post-delete' p.id %}">Delete</a>
+                                </div>
+                            </span>
                         {% endif %}
-
-                    {% empty %}
-                        <a class='likebutton' data-catid="{{ p.id }}"><i id='like{{ p.id }}' class="btn far fa-heart fa-lg post-buttons "></i></a>
-
-                    {% endfor %}
-                    <a href="{% url 'comment-form' p.id %}" id="comment-link"><i class="far fa-comment fa-lg post-buttons"></i></a>
-                    {% if p.author == user %}
-                        <span class="dropdown show">
-                            <a class="btn btn-link" href="#" role="button" id="dropdownMenuLink-{{p.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-h post-buttons"></i>
+                    {% endif %}
+                            
+                    {% if user.is_authenticated %}    
+                        {% if p.likes.count == 0 %}
+                            <a id='black-link' class='like{{p.id}}' href="{% url 'likes-list' p.id %}" style="display:none;">
+                                <div>
+                                    <b id='likecount{{p.id}}'> {{p.likes.count}} likes
+                                    </b>
+                                </div>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-{{p.id}}">
-                                <a class="dropdown-item" href="{% url 'post-update' p.id %}">Update</a>
-                                <a class="dropdown-item" href="{% url 'post-delete' p.id %}">Delete</a>
-                            </div>
-                        </span>
-                    {% endif %}
-                    {% if p.likes.count == 0 %}
-                        <a id='black-link' class='like{{p.id}}' href="{% url 'likes-list' p.id %}" style="display:none;">
-                            <div>
-                                <b id='likecount{{p.id}}'> {{p.likes.count}} likes
-                                </b>
-                            </div>
-                        </a>
-                    {% elif p.likes.count == 1 %}
-                    <a id="author-link" class='like{{p.id}}' href="{% url 'likes-list' p.id %}">
-                        <div>
-                            <b id='likecount{{p.id}}'> {{p.likes.count}} like
-                            </b>
-                        </div>
-                    </a>
-                    {% elif p.likes.count > 1 %}
-                        <a id="author-link" class='like{{p.id}}' href="{% url 'likes-list' p.id %}">
-                            <div>
-                                <b id='likecount{{p.id}}'> {{p.likes.count}} likes
-                                </b>
-                            </div>
-                        </a>
-                    {% endif %}
-                    <div class='mb-0'><p class='mb-0 comment-text'><a href="{% url 'public-profile' p.author.username %}" id="author-link"><b>{{ p.author }}</b></a> {{ p.caption }}</p></div>
-                    {% for comment in p.comments.all %}
-                        {% if forloop.counter0 == 0 %}
-                            {% if p.comments.all.count > 3 %}
-                                <div class='post-text-indent'>
-                                    <a href="{% url 'post-detail' p.id %}" id="detail-link">
-                                        <p id='more-comments'>
-                                            View all {{ p.comments.all.count}} comments
-                                        </p>
-                                    </a>
+                        {% elif p.likes.count == 1 %}
+                            <a id="author-link" class='like{{p.id}}' href="{% url 'likes-list' p.id %}">
+                                <div>
+                                    <b id='likecount{{p.id}}'> {{p.likes.count}} like
+                                    </b>
+                                </div>
+                            </a>
+                        {% elif p.likes.count > 1 %}
+                            <a id="author-link" class='like{{p.id}}' href="{% url 'likes-list' p.id %}">
+                                <div>
+                                    <b id='likecount{{p.id}}'> {{p.likes.count}} likes
+                                    </b>
+                                </div>
+                            </a>
+                        {% endif %}
+                        <div class='mb-0'><p class='mb-0 comment-text'><a href="{% url 'public-profile' p.author.username %}" id="author-link"><b>{{ p.author }}</b></a> {{ p.caption| safe }}</p></div>
+                        {% for comment in p.comments.all %}
+                            {% if forloop.counter0 == 0 %}
+                                {% if p.comments.all.count > 3 %}
+                                    <div class='post-text-indent'>
+                                        <a href="{% url 'post-detail' p.id %}" id="detail-link">
+                                            <p id='more-comments'>
+                                                View all {{ p.comments.all.count}} comments
+                                            </p>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            {% if forloop.counter0 < 2 %}
+                                <div class='mb-0'>
+                                    <p class='mb-0 comment-text'>
+                                        <a href="{% url 'public-profile' comment.author.username %}" id="author-link">
+                                            <b>{{ comment.author }}</b>
+                                        </a> {{ comment.content }}
+                                    </p>
                                 </div>
                             {% endif %}
-                        {% endif %}
-                        {% if forloop.counter0 < 2 %}
-                            <div class='mb-0'>
-                                <p class='mb-0 comment-text'>
-                                    <a href="{% url 'public-profile' comment.author.username %}" id="author-link">
-                                        <b>{{ comment.author }}</b>
-                                    </a> {{ comment.content }}
-                                </p>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
                     {% endif %}
                     <a href="{% url 'post-detail' p.id %}" id="detail-link">
                         <p>

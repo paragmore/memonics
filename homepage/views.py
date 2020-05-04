@@ -57,7 +57,7 @@ def search(request):
     return render(request, 'base.html', {'form': form})
 
 
-class PostDetailView(LoginRequiredMixin, DetailView):
+class PostDetailView( DetailView):
     model = Post
     context_object_name = 'p'
 
@@ -93,7 +93,7 @@ def post(request):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['caption']
+    fields = ['caption', 'content']
     template_name_suffix = '_update_form'
 
     def get_success_url(self):

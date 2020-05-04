@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "3u2^3)@sdhco&9g8k5oswtkkzq#68f0ghnbee2#!#()q_fbhtb"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['memonics.herokuapp.com']
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'directmessages.apps.DirectmessagesConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'tinymce',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
