@@ -12,6 +12,7 @@ django-heroku==0.3.1
 django-model-utils==3.1.2
 django-notifications-hq==1.5.0
 django-storages==1.7.1
+django-tinymce==3.0.2
 django-unused-media==0.1.13
 docutils==0.14
 et-xmlfile==1.0.1
@@ -30,3 +31,4 @@ s3transfer==0.2.1
 six==1.12.0
 urllib3==1.24.1
 whitenoise==4.1.3
+
