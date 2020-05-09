@@ -134,13 +134,23 @@
         <div class="row h-100">
             <div class="col-12 col-md-8 feed col-centered padding-0">
                 <div class="d-md-none " >
-                    <button class="btn btn-info dropdown-toggle" style="position: fixed; " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Subject
+                    <button class="btn btn-info dropdown-toggle" style="position: fixed; margin-right: 1px; margin-left: 72vw; " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Chapter
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         {% for subject in subjects%}
-                      <a class="dropdown-item {{subject.subject}}" data-catid="{{subject.subject}}" >{{subject.subject}}</a>
-                        {% endfor %}
+                <div style="margin-top: 2vh;"></div>
+                <h6 class="dropdown-header">{{subject.subject}}</h6>
+                <div id='postdivider'></div>
+                
+                {% for chapter in chapters%}
+                {% if chapter.subject.subject == subject.subject %}
+                
+                <a class="dropdown-item" href="{% url 'chapter-home' chapter.id %}">{{chapter.chapter}}</a>
+                
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
                     </div>
                 </div>
                 {% block content %}
