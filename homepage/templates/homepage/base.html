@@ -116,6 +116,7 @@
                 
                 {% for chapter in chapters%}
                 {% if chapter.subject.subject == subject.subject %}
+                <div>{{chapter.chapter}}</div>
                 <a class="dropdown-item" href="{% url 'chapter-home' chapter.id %}">{{chapter.chapter}}</a>
                 
                 {% endif %}
