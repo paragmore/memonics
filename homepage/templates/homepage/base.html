@@ -108,7 +108,7 @@
             <button class="btn btn-primary dropdown-toggle" style="background-image: url('{% static 'homepage/sub_but_grad.png' %}'); height:10vh ;width:15vw ;background-size: cover;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Chapter
             </button>
-            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="background-image: url('{% static 'homepage/sub_but_grad.png' %}'); ">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="overflow-y: scroll;max-height: 70vh; background-color: #ffd152c9;  ">
                 {% for subject in subjects%}
                 <div style="margin-top: 2vh;"></div>
                 <h6 class="dropdown-header">{{subject.subject}}</h6>
@@ -133,11 +133,11 @@
     <main role="main" class="container h-100">
         <div class="row h-100">
             <div class="col-12 col-md-8 feed col-centered padding-0">
-                <div class="d-md-none " >
+                <div class="d-md-none"  >
                     <button class="btn btn-info dropdown-toggle" style="position: fixed; margin-right: 1px; margin-left: 72vw; " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Chapter
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu" style="overflow-y: auto;" aria-labelledby="dropdownMenuButton">
                         {% for subject in subjects%}
                 <div style="margin-top: 2vh;"></div>
                 <h6 class="dropdown-header">{{subject.subject}}</h6>
