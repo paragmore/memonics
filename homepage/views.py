@@ -26,6 +26,7 @@ class PublicPostListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['subjects']= Subject.objects.all()
+        context['chapters']= Chapter.objects.all()
         return context
 
 class PostListView(LoginRequiredMixin,ListView):
@@ -41,6 +42,7 @@ class PostListView(LoginRequiredMixin,ListView):
         context['followers'] = Follower.objects.filter(follower__username=self.request.user)
         context['likesbyuser'] = Like.objects.filter(liker=self.request.user)
         context['subjects']= Subject.objects.all()
+        context['chapters']= Chapter.objects.all()
         return context
 
 class ChapterPostListView(LoginRequiredMixin,ListView):
