@@ -40,7 +40,7 @@ class Post(models.Model):
     content = HTMLField(blank=True,null=True)
 
     def __str__(self):
-        return f'self.caption+1'
+        return f"{self.caption}+1"
 
 
 class PostImage(models.Model):
