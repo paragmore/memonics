@@ -42,6 +42,7 @@
                 </form>
             </div>
             
+            
             {% if user.is_authenticated %}
                 <div class="d-none d-md-block justify-content-center">
                     <ul class="navbar-nav" >
@@ -101,10 +102,46 @@
         {% endfor %}
     {% endif %}
 
+    <aside role="aside">
+    <div>
+        <div class=" d-none d-md-block dropdown navbar" style="position: fixed;">
+            <button class="btn btn-primary dropdown-toggle" style="background-image: url('{% static 'homepage/sub_but_grad.png' %}'); height:10vh ;width:15vw ;background-size: cover;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Chapter
+            </button>
+            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="background-image: url('{% static 'homepage/sub_but_grad.png' %}'); ">
+                {% for subject in subjects%}
+                <div style="margin-top: 2vh;"></div>
+                <h6 class="dropdown-header">{{subject.subject}}</h6>
+                <div id='postdivider'></div>
+                
+                {% for chapter in chapters%}
+                {% if chapter.subject.subject == subject.subject %}
+                <a class="dropdown-item" href="{% url 'chapter-home' chapter.id %}">{{chapter.chapter}}</a>
+                
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div>  
+        </div>
+    </div>
+</aside>
+    
+
+      
+
     <main role="main" class="container h-100">
         <div class="row h-100">
             <div class="col-12 col-md-8 feed col-centered padding-0">
-
+                <div class="d-md-none " >
+                    <button class="btn btn-info dropdown-toggle" style="position: fixed; " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Subject
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for subject in subjects%}
+                      <a class="dropdown-item {{subject.subject}}" data-catid="{{subject.subject}}" >{{subject.subject}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
                 {% block content %}
                 {% endblock content %}
             </div>
@@ -179,6 +216,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    $('main').on('click', '.knowmorebutton',function(){
+        console.log('clicked')
+        var catid;
+        catid= $(this).attr("data-catid");
+        var x = document.getElementById(catid);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+    })
+    </script>
+
+
 
 
     <script type="text/javascript">
@@ -272,6 +325,7 @@
       }
     });
   </script>
+  
 
 
 </html>

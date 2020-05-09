@@ -4,14 +4,19 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
+
 <div class='infinite-container'>
+    
     {% for p in posts %}
-        <div class="infinite-item">
+    
+
+        <div class="infinite-item {{ p.chapter.subject.subject }} "  id="{{ p.chapter.subject.subject }}{{p.id}}"> 
             
                     <a href="{% url 'public-profile' p.author.username %}" id="author-link">
 
                         <img class="rounded-circle article-img" src= "{{ p.author.profile.image.url }}">
                         <strong>{{ p.author }}</strong>
+                        <strong>{{ p.chapter.subject }}</strong>
                     </a>
                     {% if p.images.count > 1 %}
                         <div id="carousel-{{p.id}}" class="carousel slide" style="height: auto;" data-ride="carousel" data-interval="false" data-wrap="false">
@@ -54,9 +59,10 @@
                         {% endfor %}
                     {% endif %}
                     <div class="d-flex justify-content-center mt-2">
-                        <a href="{% url 'post-detail' p.id %}" id="post-link">
-                            <button class="btn btn-secondary btn-lg post"> <p style=" font-weight: bold ;font-size: 15px; height: 1px;">Know More!</p></button>
-                        </a>
+                        
+                    <button data-catid="{{ p.id }}"  class="btn btn-secondary btn-lg post knowmorebutton"> <p style=" font-weight: bold ;font-size: 15px; height: 1px;">Know More!</p></button>
+                       
+                        
                     </div>  
                     
                     {% if user.is_authenticated %}
@@ -84,6 +90,7 @@
                             </span>
                         {% endif %}
                     {% endif %}
+                    
                             
                     {% if user.is_authenticated %}    
                         {% if p.likes.count == 0 %}
@@ -137,8 +144,10 @@
                             <small>{{ p.date_posted|naturaltime|upper }}</small>
                         </p>
                     </a>
+                    <div style="display: none;" id="{{p.id}}">  
+                        <div>{{ p.content| safe }}</div>
+                    </div>
                     <div id='postdivider'></div>
-               
         </div>
     {% endfor %}
 </div>

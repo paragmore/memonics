@@ -13,12 +13,19 @@ from tinymce.models import HTMLField
 class Subject(models.Model):
     subject= models.CharField(max_length=64)
 
+    def __str__(self):
+        return self.subject
+
 class Chapter(models.Model):
     chapter= models.CharField(max_length=64)
     subject= models.ForeignKey(Subject, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.chapter
 
 class Tag(models.Model):
     tag= models.CharField(max_length=64)
+    def __str__(self):
+        return self.tag
 
 class Post(models.Model):
     chapter= models.ForeignKey(Chapter, on_delete= models.SET_NULL, blank=True, null=True)

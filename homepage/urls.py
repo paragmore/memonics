@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .views import PostDetailView, CommentCreateView, public_profile, CommentUpdateView, CommentDeleteView, FollowerListView, PostDeleteView, PostUpdateView, likePost, SearchListView, PostListView, ExploreListView, PublicPostListView
+from .views import ChapterPostListView,PostDetailView , CommentCreateView, public_profile, CommentUpdateView, CommentDeleteView, FollowerListView, PostDeleteView, PostUpdateView, likePost, SearchListView, PostListView, ExploreListView, PublicPostListView
 import notifications.urls
 
 
@@ -8,6 +8,7 @@ import notifications.urls
 urlpatterns = [
     path('logged/', PostListView.as_view(), name='home'),
     path('', PublicPostListView.as_view(), name='public-home'),
+    path('chapter/<int:chapter_id>/', ChapterPostListView.as_view(), name='chapter-home'),
     path('explore/', ExploreListView.as_view(), name='explore'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='comment-update'),

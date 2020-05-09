@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Post, PostImage, Comment, Like
+from .models import Post, PostImage, Comment, Like, Subject, Chapter
 from users.models import Profile, Follower
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -14,6 +14,7 @@ from django.forms import modelformset_factory
 from django.contrib import messages
 from django.db.models import Q
 # third- request looks for appropriate function to match and executes it (in this case it is an http response)
+    
 
 class PublicPostListView(ListView):
     model = Post
@@ -21,6 +22,11 @@ class PublicPostListView(ListView):
     ordering = ['-date_posted']
     context_object_name = 'posts'
     paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['subjects']= Subject.objects.all()
+        return context
 
 class PostListView(LoginRequiredMixin,ListView):
     model = Post
@@ -34,8 +40,23 @@ class PostListView(LoginRequiredMixin,ListView):
         context['now'] = datetime.now()
         context['followers'] = Follower.objects.filter(follower__username=self.request.user)
         context['likesbyuser'] = Like.objects.filter(liker=self.request.user)
+        context['subjects']= Subject.objects.all()
         return context
 
+class ChapterPostListView(LoginRequiredMixin,ListView):
+    model = Chapter
+    template_name = 'homepage/chapter.html'
+    context_object_name = 'chapters'
+    paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = datetime.now()
+        context['followers'] = Follower.objects.filter(follower__username=self.request.user)
+        context['likesbyuser'] = Like.objects.filter(liker=self.request.user)
+        context['subjects']= Subject.objects.all()
+        context['chapter']= Chapter.objects.get(id= self.kwargs['chapter_id'])
+        return context
 
 def likePost(request):
     if request.method == 'GET':
@@ -176,24 +197,6 @@ class LikeListView(LoginRequiredMixin, ListView):
         qs = super().get_queryset()
         # filter by var from captured url
         return qs.filter(post__pk=self.kwargs['pk'])
-
-
-def aboutUs(request):
-    # displays http response for about us page
-    response = render(request, 'homepage/aboutUs.html', {'title': 'About Us'})
-    return response
-
-
-def redirectAboutView(request):
-    # redirects from /about to /about/us and displays http response of def aboutUs
-    response = redirect('us/')
-    return response
-
-
-def aboutJobs(request):
-    # displays http response for about jobs page
-    response = HttpResponse('<h1>Caseygram About Jobs</h1>')
-    return response
 
 
 class ExploreListView(LoginRequiredMixin, ListView):
