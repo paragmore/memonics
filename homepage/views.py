@@ -217,6 +217,8 @@ class ExploreListView(LoginRequiredMixin, ListView):
         context['followers'] = Follower.objects.filter(follower__username=self.request.user)
 
         context['profiles'] = Profile.objects.exclude(user=self.request.user).exclude(user__username__in=followed_users).order_by('-user__date_joined')[:4]
+        context['subjects']= Subject.objects.all()
+        context['chapters']= Chapter.objects.all()
 
         followlist = []
         qs = Follower.objects.exclude(being_followed=self.request.user).filter(follower=self.request.user)
