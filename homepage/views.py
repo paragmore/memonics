@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Post, PostImage, Comment, Like, Subject, Chapter
+from .models import Post, PostImage, Comment, Like, Subject, Chapter, Video, Introduction
 from users.models import Profile, Follower
 from datetime import datetime
 from django.contrib.auth.decorators import login_required

@@ -31,21 +31,34 @@ class Post(models.Model):
     chapter= models.ForeignKey(Chapter, on_delete= models.SET_NULL, blank=True, null=True)
     tag= models.ForeignKey(Tag, on_delete= models.SET_NULL, blank=True, null=True)
     caption = models.TextField(max_length=500, blank=True)  # caption is a field in this Post model. it specifies a class attribute Charfield and represents a database column. blank=True lets the field be optional left empty
-    date_posted = models.DateTimeField(default=timezone.now)  # instead of hard setting the time this timezone.now takes the users timezone into consideration.
-    author = models.ForeignKey(User, on_delete=models.CASCADE)  # foreign key calls on an outside model whether imported or in this file, CASCADE will delete the post if
-    # the User is deleted but wont delete the user if the post if deleted
-    # likes?
-    # comments?
-    # picture = models.
+    date_posted = models.DateTimeField(default=timezone.now)  
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  
     content = HTMLField(blank=True,null=True)
-
     def __str__(self):
         return f"{self.caption}+1"
+
+class Introduction(models.Model):
+    chapter= models.ForeignKey(Chapter,on_delete= models.SET_NULL, blank=True, null=True )
+    intro= models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.intro}"
+
+
+class Video(models.Model):
+    chapter= models.ForeignKey(Chapter,on_delete= models.SET_NULL, blank=True, null=True )
+    description= models.TextField(blank=True, null=True)
+    video_id= models.CharField(max_length=300)
+    v_type= models.CharField(max_length=100) 
+
+    def __str__(self):
+        return f"{self.video_id}+ {self.v_type}"
 
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post, related_name='images', on_delete=models.CASCADE)
     modelimage = models.ImageField(upload_to='post_images')
+
 
 
 class Comment(models.Model):
