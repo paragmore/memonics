@@ -131,7 +131,8 @@ ul li a{
 }
 
 .navbar-custom{
-    background-color: #FFFFFF
+    background-color: #FFFFFF;
+
 }
 
 #postdivider {
@@ -230,7 +231,7 @@ small {
 }
 
 body {
-    padding-top: 65px;
+    padding-top: 45px;
     padding-bottom: 75px;
 }
 
@@ -264,5 +265,55 @@ body {
 }
 
 
+/* The side navigation menu */
+body {
+  font-family: "Lato", sans-serif;
+}
 
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(245, 236, 228);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 50px;
+}
 
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 17px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav h6 {
+  font-size: 19px;
+  color: #625e5e;
+}
+
+.sidenav a:hover {
+  color: #e79950b6;
+}
+
+.sidenav .closebtn {
+  position: sticky;
+  top: 10px;
+  
+  font-size: 36px;
+  margin-left: 150px;
+}
+
+.sidenavspan a:hover {
+  color: #fc4a1a;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

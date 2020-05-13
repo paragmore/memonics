@@ -4,7 +4,8 @@
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
-        <meta name="viewport" content= "width=device-width, user-scalable=no">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -27,7 +28,7 @@
 
     </head>
 <body>
-    <nav class="navbar navbar-expand fixed-top navbar-custom">
+    <nav class="navbar navbar-expand fixed-top navbar-custom" style="height: 45px;" >
         <div class="container" id='navbar'>
             <div class="justify-content-start">
                 <a class="navbar-brand" href="/">
@@ -104,12 +105,12 @@
 
     <aside role="aside">
     <div>
-        <div class=" d-none d-md-block dropdown navbar" style="position: fixed;">
-            <button class="btn btn-primary dropdown-toggle" style="background-image: url('{% static 'homepage/sub_but_grad.png' %}'); height:10vh ;width:15vw ;background-size: cover;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Chapter
-            </button>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="overflow-y: scroll;max-height: 70vh; background-color: #ffd152c9;  ">
-                {% for subject in subjects%}
+    
+            
+            
+            <div id="mySidenav" class="sidenav" style="overflow-y: scroll;max-height: 100vh;">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
+              {% for subject in subjects%}
                 <div style="margin-top: 2vh;"></div>
                 <h6 class="dropdown-header">{{subject.subject}}</h6>
                 <div id='postdivider'></div>
@@ -122,8 +123,8 @@
                 {% endif %}
                 {% endfor %}
                 {% endfor %}
-            </div>  
-        </div>
+            </div>
+            <button class="btn btn-link"  style=" color: darkorange ;position: fixed ;font-size:30px;cursor:pointer,"  onclick="openNav()">&#9776; Chapter</button> 
     </div>
 </aside>
     
@@ -133,32 +134,17 @@
     <main role="main" class="container h-100">
         <div class="row h-100">
             <div class="col-12 col-md-8 feed col-centered padding-0">
-                <div class="d-md-none"  >
-                    <button class="btn post dropdown-toggle" style=" color: white ;position: fixed; margin-right: 1px; margin-left: 72vw; " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Chapter
+                <div class="d-md-none" style="width: 100%;height: 36px;background-color: white;position: fixed;" >
+                    <button class="btn post" style=" color: white ;position: fixed;" onclick="openNav()">&#9776; Chapter</button>
                     </button>
-                    <div class="dropdown-menu" style="overflow-y: scroll;max-height: 70vh;" aria-labelledby="dropdownMenuButton">
-                        {% for subject in subjects%}
-                <div style="margin-top: 2vh;"></div>
-                <h6 class="dropdown-header">{{subject.subject}}</h6>
-                <div id='postdivider'></div>
-                
-                {% for chapter in chapters%}
-                {% if chapter.subject.subject == subject.subject %}
-                
-                <a class="dropdown-item" href="{% url 'chapter-home' chapter.id %}">{{chapter.chapter}}</a>
-                
-                {% endif %}
-                {% endfor %}
-                {% endfor %}
-                    </div>
+                    
                 </div>
                 {% block content %}
                 {% endblock content %}
             </div>
         </div>
     </main>
-    <nav class="navbar fixed-bottom navbar-light bg-light navbar-expand nav-footer">
+    <nav class="navbar fixed-bottom navbar-light bg-light navbar-expand nav-footer" style="height: 42px;">
         {% if user.is_authenticated %}
             <ul class="navbar-nav nav-fill w-100" >
                 <li class="nav-item">
@@ -242,6 +228,15 @@
     })
     </script>
 
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
 
 
 
