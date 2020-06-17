@@ -14,6 +14,7 @@ django-notifications-hq==1.5.0
 django-storages==1.7.1
 django-tinymce==3.0.2
 django-unused-media==0.1.13
+djangorestframework==3.11.0
 docutils==0.14
 et-xmlfile==1.0.1
 gunicorn==19.9.0
