@@ -6,7 +6,7 @@ The last commit was for experimental purpose and has changed the UI/UX and becom
 
 
 <p>Thanks to Corey Schafer for his interesting and helpful django tutorial series - (https://www.youtube.com/channel/UCCezIgC97PvUuR4_gbFUs5g) </p>                                 <p>                                                                                                                                                                                    <img src="/screenshots/1 (1).png" alt="drawing" width="196"/>
-<img src="/screenshots/1 (2).png" alt="drawing" width="200"/>
+<img src="/screenshots/1 (2).png" alt="drawing" width="198"/>
 <img src="/screenshots/1 (3).png" alt="drawing" width="200"/>
 <img src="/screenshots/1 (4).png" alt="drawing" width="200"/>
 <img src="/screenshots/1 (5).png" alt="drawing" width="200"/>
